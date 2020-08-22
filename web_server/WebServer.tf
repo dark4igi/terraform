@@ -7,16 +7,7 @@ resource "aws_instance" "My_Web_Server" {
   instance_type          = "t2.small"
   key_name               = "aws-key"
   vpc_security_group_ids = [aws_security_group.My_Web_Server.id]
-  user_data = <<EOF
-#!/bin/bash
-sudo -s
-yum -y update
-yum install -y httpd
-myip=`curl http://169.254.169.254/latest/meta-data/local-ipv4`
-echo "<h2> WebServer with IP: $myip</h2><br>Build by terraform!" > /var/www/html/index.html
-sudo service httpd start
-sudo chkconfig httpd on
-EOF
+  user_data              = file ("user_data.sh")
 
   tags = {
     Name = "Web Server"
