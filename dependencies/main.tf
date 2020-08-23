@@ -9,7 +9,7 @@ provider "aws" {
 }
 
 resource "aws_instance" "my_server_web" {
-  ami                    = "ami-03a71cec707bfc3d7"
+  ami                    = "ami-02354e95b39ca8dec"
   instance_type          = "t3.micro"
   vpc_security_group_ids = [aws_security_group.my_webserver.id]
 
@@ -20,7 +20,7 @@ resource "aws_instance" "my_server_web" {
 }
 
 resource "aws_instance" "my_server_app" {
-  ami                    = "ami-03a71cec707bfc3d7"
+  ami                    = "ami-02354e95b39ca8dec"
   instance_type          = "t3.micro"
   vpc_security_group_ids = [aws_security_group.my_webserver.id]
 
@@ -33,7 +33,7 @@ resource "aws_instance" "my_server_app" {
 
 
 resource "aws_instance" "my_server_db" {
-  ami                    = "ami-03a71cec707bfc3d7"
+  ami                    = "ami-02354e95b39ca8dec"
   instance_type          = "t3.micro"
   vpc_security_group_ids = [aws_security_group.my_webserver.id]
 
