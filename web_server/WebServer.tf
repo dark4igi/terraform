@@ -10,7 +10,7 @@ resource "aws_instance" "My_Web_Server" {
   user_data              = templatefile("user_data.sh.tpl", {
     f_name = "igi",
     l_name = "moran",
-    names = ["Vasya", "kolya", "Petya", "John", "Donald", "Masha"]
+    names = ["Martos", "Vasya", "Kolya", "Petya", "John", "Donald", "Masha"]
   })
 
   tags = {
@@ -28,25 +28,14 @@ resource "aws_security_group" "My_Web_Server" {
   name        = "WS-sg"
   description = "Web server security group"
 
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+  dynamic "ingress" {
+    for_each = ["80", "443", "22", "8080"]
+    content {
+      from_port   = ingress.value
+      to_port     = ingress.value
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+    }
   }
 
   egress {
