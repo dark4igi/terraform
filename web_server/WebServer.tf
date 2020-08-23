@@ -19,7 +19,7 @@ resource "aws_instance" "My_Web_Server" {
   }
 
   lifecycle {
-    ignore_changes = ["ami", "user_data"]
+    ignore_changes = [ami, user_data]
   }
 }
 
