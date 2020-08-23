@@ -2,6 +2,11 @@ provider "aws" {
   region = "us-east-1"
 }
 
+resource "aws_eip" "mystatic_ip" {
+  instance = aws_instance.My_Web_Server.id
+
+}
+
 resource "aws_instance" "My_Web_Server" {
   ami                    = "ami-02354e95b39ca8dec"
   instance_type          = "t2.medium"
