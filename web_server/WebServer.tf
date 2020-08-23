@@ -15,7 +15,7 @@ resource "aws_instance" "My_Web_Server" {
   user_data              = templatefile("user_data.sh.tpl", {
     f_name = "igi",
     l_name = "moran",
-    names = ["Martos", "Vasya", "Kolya", "Petya", "John", "Donald", "Masha", "Test"]
+    names = ["Martos", "Vasya", "Kolya", "Petya", "John", "Donald", "Masha", "Inokentiy"]
   })
 
   tags = {
@@ -24,7 +24,7 @@ resource "aws_instance" "My_Web_Server" {
   }
 
   lifecycle {
-    ignore_changes = [ami, user_data]
+    create_before_destroy = true
   }
 }
 
