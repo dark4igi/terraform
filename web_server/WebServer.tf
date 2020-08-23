@@ -19,7 +19,7 @@ resource "aws_instance" "My_Web_Server" {
   }
 
   lifecycle {
-    prevent_destroy = true
+    ignore_changes = ["ami", "user_data"]
   }
 }
 
