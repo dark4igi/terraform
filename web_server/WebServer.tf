@@ -60,3 +60,5 @@ resource "aws_security_group" "My_Web_Server" {
   }
 
 }
+
+data "aws_availability_zones" "working" {}
