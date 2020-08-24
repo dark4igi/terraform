@@ -20,11 +20,12 @@ resource "aws_subnet" "main" {
   availability_zone = data.aws_availability_zones.working.names [ "${count.index}" ]
 
   tags = {
-    Name = "Main subnet on ${data.aws_availability_zones.working.names [ "${count.index}" ]} az"
+    Name = "Main"
+    AZ = "${data.aws_availability_zones.working.names [ "${count.index}" ]}"
   }
 }
 
-resource "aws_internet_gateway" "gw" {
+resource "aws_internet_gateway" "main" {
   vpc_id = aws_vpc.main.id
 
   tags = {
@@ -33,11 +34,34 @@ resource "aws_internet_gateway" "gw" {
 }
 
 
+resource "aws_route_table" "main" {
+  vpc_id = aws_vpc.main.id
 
-output "data_aws_availability_zone" {
-  value = data.aws_availability_zones.working.names[0]
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.main.id
+  }
 }
 
-output "data_aws_availability_zone_count" {
-  value = length ( data.aws_availability_zones.working.names )
+data "aws_subnet_ids" "test_subnet_ids" {
+  vpc_id = aws_vpc.main.id
+}
+
+data "aws_subnet" "test_subnet" {
+  count = "${length(data.aws_subnet_ids.test_subnet_ids.ids)}"
+  id    = "${tolist(data.aws_subnet_ids.test_subnet_ids.ids)[count.index]}"
+}
+
+/*output "tei" {
+  value = ${data.aws_subnet_ids.test_subnet_ids.ids}
+}*/
+
+resource "aws_route_table_association" "a" {
+  count = length ( data.aws_availability_zones.working.names )
+  subnet_id      = data.aws_subnet.test_subnet.*.id [ "${count.index}" ] 
+  route_table_id = aws_route_table.main.id
+}
+
+output "subnet_cidr_blocks" {
+  value = "${data.aws_subnet.test_subnet.*.id}"
 }
