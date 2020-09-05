@@ -41,27 +41,30 @@ resource "aws_route_table" "main" {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.main.id
   }
+  tags = {
+    Name = "main"
+  }
 }
 
 data "aws_subnet_ids" "test_subnet_ids" {
   vpc_id = aws_vpc.main.id
 }
 
-data "aws_subnet" "test_subnet" {
+data "aws_subnet" "main" {
   count = "${length(data.aws_subnet_ids.test_subnet_ids.ids)}"
   id    = "${tolist(data.aws_subnet_ids.test_subnet_ids.ids)[count.index]}"
 }
 
-/*output "tei" {
-  value = ${data.aws_subnet_ids.test_subnet_ids.ids}
-}*/
+output "tei" {
+  value = "${data.aws_subnet_ids.test_subnet_ids.ids}"
+}
 
 resource "aws_route_table_association" "a" {
   count = length ( data.aws_availability_zones.working.names )
-  subnet_id      = data.aws_subnet.test_subnet.*.id [ "${count.index}" ] 
+  subnet_id      = data.aws_subnet.main.*.id [ "${count.index}" ]
   route_table_id = aws_route_table.main.id
 }
 
 output "subnet_cidr_blocks" {
-  value = "${data.aws_subnet.test_subnet.*.id}"
+  value = "${data.aws_subnet.main.*.id}"
 }
