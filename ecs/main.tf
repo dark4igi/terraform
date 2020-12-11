@@ -20,15 +20,8 @@ resource "aws_ecs_task_definition" "service" {
   container_definitions = file("my_nginx-def.json")
 }
 
-resource "aws_ecs_service" "esc-stage" {
-  name = "stage-cluster"
-  task_definition = aws_ecs_task_definition.service.id
-  launch_type = "FARGATE"
-  scheduling_strategy = "DAEMON"
-}
-
 resource "aws_ecs_cluster" "esc-stage" {
   name = "stage-cluster"
-  launch_type = "FARGATE"
-  scheduling_strategy = "DAEMON"
+  //launch_type = "FARGATE"
+  //scheduling_strategy = "DAEMON"
 }
