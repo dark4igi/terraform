@@ -25,7 +25,7 @@
       "secrets": null,
       "dockerSecurityOptions": null,
       "memory": null,
-      "memoryReservation": null,
+      "memoryReservation": 300,
       "volumesFrom": [],
       "stopTimeout": null,
       "image": "043525666653.dkr.ecr.us-east-1.amazonaws.com/my-nginx",
