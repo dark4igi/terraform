@@ -7,7 +7,7 @@ provider "aws" {
 
 
 resource "aws_ecr_repository" "docker-repo" {
-  name                 = "nginx"
+  name                 = "my-nginx"
   image_tag_mutability = "MUTABLE"
 
   image_scanning_configuration {
