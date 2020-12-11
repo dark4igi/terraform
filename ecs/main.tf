@@ -18,5 +18,5 @@ resource "aws_ecr_repository" "docker-repo" {
 resource "aws_ecs_service" "mongo" {
   name = "stage-cluster"
   launch_type = "FARGATE"
-  scheduling_strategy = "DEAMON"
+  scheduling_strategy = "DAEMON"
 }
