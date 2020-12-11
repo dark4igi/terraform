@@ -22,6 +22,7 @@ resource "aws_ecs_task_definition" "service" {
 
 resource "aws_ecs_service" "esc-stage" {
   name = "stage-cluster"
+  task_definition = aws_ecs_task_definition.service.id
   launch_type = "FARGATE"
   scheduling_strategy = "DAEMON"
 }
