@@ -22,6 +22,7 @@ resource "aws_ecs_task_definition" "service" {
 
 resource "aws_ecs_cluster" "esc-stage" {
   name = "stage-cluster"
+  desired_count   = 3
   //launch_type = "FARGATE"
   //scheduling_strategy = "DAEMON"
 }
