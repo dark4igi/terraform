@@ -61,7 +61,7 @@ resource "aws_ecs_cluster" "cluster" {
 }
 
 data "template_file" "task_def" {
-  template = "${file("task-def.json")}"
+  template = file("task-def.json")
   vars = {
     var_var = aws_ssm_parameter.foo.value
   }
