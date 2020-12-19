@@ -6,7 +6,7 @@
         "logDriver": "awslogs",
         "secretOptions": null,
         "options": {
-          "awslogs-group": "/ecs/123",
+          "awslogs-group": "/ecs/nginxtd",
           "awslogs-region": "us-east-1",
           "awslogs-stream-prefix": "ecs"
         }
@@ -16,7 +16,12 @@
       "command": null,
       "linuxParameters": null,
       "cpu": 0,
-      "environment": [],
+      "environment": [
+        {
+          "name": "param_name",
+          "value": "${var_var}"
+        }
+      ],
       "resourceRequirements": null,
       "ulimits": null,
       "dnsServers": null,
@@ -25,10 +30,10 @@
       "secrets": null,
       "dockerSecurityOptions": null,
       "memory": null,
-      "memoryReservation": 300,
+      "memoryReservation": null,
       "volumesFrom": [],
       "stopTimeout": null,
-      "image": "043525666653.dkr.ecr.us-east-1.amazonaws.com/my-nginx",
+      "image": "045177464321.dkr.ecr.us-east-1.amazonaws.com/mynginx:1",
       "startTimeout": null,
       "firelensConfiguration": null,
       "dependsOn": null,
@@ -45,6 +50,6 @@
       "dockerLabels": null,
       "systemControls": null,
       "privileged": null,
-      "name": "my-nginx"
+      "name": "mynginx"
     }
-  ]
+]
